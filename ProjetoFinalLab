@@ -1,0 +1,177 @@
+#include <stdio.h>
+
+#define max_clientes 50
+#define max_produtos 10
+#define max_vendas 100
+
+int id_clientes[max_clientes];
+int total_clientes = 0;
+char nome_clientes[max_clientes][50];
+
+char nome_produto[max_produtos][50];
+int cod_produtos[max_produtos];
+int total_produtos = 0;
+float  preco_produtos[max_produtos];
+int produtos_estoque[max_produtos];
+
+int vendas_id_produto[max_vendas];
+int vendas_id_cliente[max_vendas];
+int vendas_quantidade[max_vendas];
+float vendas_valor_total[max_vendas];
+int total_vendas = 0;
+
+void cadastrar_clientes() {
+    int quantidade, id;
+
+    printf("Quantos clientes deseja cadastrar? ");
+    scanf("%d", &quantidade);
+
+    for (int i = 0; i < quantidade; i++) {
+        id = total_clientes + 1;
+        printf("Nome do cliente: ");
+        scanf(" %[^\n]", nome_clientes[total_clientes]);
+        id_clientes[total_clientes] = id;
+        printf("\nCliente %s cadastrado. ID: %d\n",nome_clientes[total_clientes], id);
+        total_clientes++;
+    }
+}
+
+void lista_clientes(){
+    
+    if( total_clientes == 0){
+        printf("Não a cadastro de Clientes\n");
+    }else{
+        printf("\nclientes cadastrados\n");
+        
+    for (int i= 0; i < total_clientes; i++) {
+        printf ("ID: %d, Nome: %s\n",id_clientes[i], nome_clientes[i]);
+    }
+  }
+}
+
+void cadastrar_produtos() {
+    int quantidade, cod;
+
+    printf("Quantos produtos deseja cadastrar? ");
+    scanf("%d", &quantidade);
+
+    for (int i = 0; i < quantidade; i++) {
+        cod = total_produtos + 1;
+        printf("Produto a ser cadastrado: ");
+        scanf(" %[^\n]", nome_produto[total_produtos]);
+        cod_produtos[total_produtos] = cod;
+        printf("Preço unitario R$");
+        scanf("%f",&preco_produtos[total_produtos]);
+        printf("quantidade em estoque: ");
+        scanf("%d", &produtos_estoque[total_produtos]);
+        printf("\nproduto cadastrado\n\n Cod: %d\n Nome: %s\n Preço: %.2f\n\n", cod, nome_produto[total_produtos], preco_produtos[total_produtos]);
+        total_produtos++;
+    }
+}
+    
+void lista_produtos(){
+    
+    if( total_produtos == 0){
+        printf("Não a cadastro de predutos");
+    }else{
+       
+    printf("\nprodutos cadastrados\n\n");
+    
+    for (int i= 0; i < total_produtos; i++) {
+        printf ("Cod: %d\n Nome: %s\n Preço: %.2f\n\n",cod_produtos[i], nome_produto[i], preco_produtos[i]);
+    }
+  }
+}
+
+void cadastrar_venda(){
+    
+    int id_cli, id_prod, quantidade;
+    
+    printf("cadastrando uma venda\n");
+    
+   if (total_clientes ==  0) {
+     printf("nenhum cliente cadastrado");
+     return;
+    }
+    
+    if(total_produtos ==0) {
+     printf("nenhum produto cadastrado");
+     return;
+    }
+    
+    lista_clientes();
+    printf("ID Cliente: ");
+    scanf("%d", &id_cli);
+    if (id_cli < 1 || id_cli > total_clientes) {
+     printf("ID de cliente inválido.\n");
+     return;
+    }
+    
+    lista_produtos();
+    printf("Código do Produto: ");
+    scanf("%d", &id_prod);
+    if (id_prod < 1 || id_prod > total_produtos) {
+     printf("Código de produto inválido.\n");
+     return;
+    }
+    
+    printf("Quantidade: ");
+    scanf("%d", &quantidade);
+
+    if (quantidade < 1) {
+     printf("Quantidade inválida.\n");
+     return;
+    }
+
+    if (produtos_estoque[id_prod - 1] < quantidade) {
+     printf("Estoque insuficiente.\n");
+     return;
+    }
+}    
+
+void menu_escolha(){
+
+    int opcao;
+
+    do{
+        printf("\n----------MENU----------\n\n");
+        printf("0 = para sair\n");
+        printf("1 = cadastrar cliente\n");
+        printf("2 = lista de clientes cadastrados\n");
+        printf("3 = cadastrar um produto\n");
+        printf("4 = Catálogo\n");
+        printf("5 = cadastrar uma venda\n\n");
+        printf("escolha uma opção acima: ");
+        scanf("%d", &opcao);
+        
+        switch (opcao){
+            
+        case 0: printf("saindo do programa\n\n"); break;
+        case 1: cadastrar_clientes(); break;
+        case 2: lista_clientes(); break;
+        case 3: cadastrar_produtos(); break;
+        case 4: lista_produtos(); break;
+        case 5: cadastrar_venda(); break;
+        default: printf("opção invalida, tente novamente\n\n");
+      
+      }
+    }while (opcao != 0);
+}
+    
+void lista_vendas(){
+    
+    if(total_vendas == 0){
+        printf("Nenhuma venda cadastrada");
+    }else{
+        
+      printf("Lista de Vendas")
+        
+    }
+}    
+
+int main() {
+    
+ menu_escolha ();
+ 
+    return 0;
+}
