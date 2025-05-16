@@ -174,26 +174,26 @@ void menu_escolha() {
     int opcao;
 
     do {
-        printf("\n---------- MENU ----------\n\n");
-        printf("0 - Sair\n");
-        printf("1 - Cadastrar cliente\n");
-        printf("2 - Listar clientes\n");
-        printf("3 - Cadastrar produto\n");
-        printf("4 - Catálogo de produtos\n");
-        printf("5 - Cadastrar uma venda\n");
-        printf("6 - Listar vendas\n");
-        printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
+     printf("\n---------- MENU ----------\n\n");
+     printf("0 - Sair\n");
+     printf("1 - Cadastrar cliente\n");
+     printf("2 - Listar clientes\n");
+     printf("3 - Cadastrar produto\n");
+     printf("4 - Catálogo de produtos\n");
+     printf("5 - Cadastrar uma venda\n");
+     printf("6 - Listar vendas\n");
+     printf("Escolha uma opção: ");
+     scanf("%d", &opcao);
         
         switch (opcao) {
-            case 0: printf("Saindo do programa...\n"); break;
-            case 1: cadastrar_clientes(); break;
-            case 2: lista_clientes(); break;
-            case 3: cadastrar_produtos(); break;
-            case 4: lista_produtos(); break;
-            case 5: cadastrar_venda(); break;
-            case 6: lista_vendas(); break;
-            default: printf("Opção inválida, tente novamente.\n");
+         case 0: printf("Saindo do programa...\n"); break;
+         case 1: cadastrar_clientes(); break;
+         case 2: lista_clientes(); break;
+         case 3: cadastrar_produtos(); break;
+         case 4: lista_produtos(); break;
+         case 5: cadastrar_venda(); break;
+         case 6: lista_vendas(); break;
+         default: printf("Opção inválida, tente novamente.\n");
         }
 
     } while (opcao != 0);
