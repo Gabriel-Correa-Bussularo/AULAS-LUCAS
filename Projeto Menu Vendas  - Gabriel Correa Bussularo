@@ -9,21 +9,18 @@ struct Cliente {
     int id;
     char nome[50];
 };
-
 struct Produto {
     int codigo;
     char nome[50];
     float preco;
     int estoque;
 };
-
 struct Venda {
     int id_cliente;
     int codigo_produto;
     int quantidade;
     float valor_total;
 };
-
 struct Cliente clientes[max_clientes];
 struct Produto produtos[max_produtos];
 struct Venda vendas[max_vendas];
@@ -109,29 +106,23 @@ void cadastrar_venda() {
     lista_clientes();
     printf("ID Cliente: ");
     scanf("%d", &id_cli);
-
     if (id_cli < 1 || id_cli > total_clientes) {
         printf("ID de cliente inválido.\n");
         return;
     }
-
     lista_produtos();
     printf("Código do Produto: ");
     scanf("%d", &cod_prod);
-
     if (cod_prod < 1 || cod_prod > total_produtos) {
         printf("Código de produto inválido.\n");
         return;
     }
-
     printf("Quantidade: ");
     scanf("%d", &quantidade);
-
     if (quantidade < 1) {
         printf("Quantidade inválida.\n");
         return;
     }
-
     int estoque_prod = cod_prod - 1;
 
     if (produtos[estoque_prod].estoque < quantidade) {
@@ -169,6 +160,49 @@ void lista_vendas() {
         printf("Valor total: R$ %.2f\n\n", vendas[i].valor_total);
     }
 }
+void excluir_cliente() {
+    int id_cliente, i, j;
+    if (total_clientes == 0) {
+        printf("Não há clientes para excluir\n");
+        return;
+    }
+    lista_clientes();
+    printf("Informe o ID do cliente a ser excluído: ");
+    scanf("%d", &id_cliente);
+
+    for (i = 0; i < total_clientes; i++) {
+        if (clientes[i].id == id_cliente) {
+            for (j = i; j < total_clientes - 1; j++) {
+                clientes[j] = clientes[j + 1];
+            }
+            total_clientes--;
+            printf("Cliente com ID %d foi excluido\n", id_cliente);
+            return;
+        }
+    }
+    printf("Cliente não encontrado.\n");
+}
+void excluir_produtos(){
+    int cod_prod, i, j;
+    if(total_produtos == 0){
+        printf("Não há produtos para excluir\n");
+        return;
+    }
+    lista_produtos();
+    printf("informe o codigo do produto a ser excluido: ");
+    scanf("%d", &cod_prod);
+    
+    for(i = 0; i < total_produtos; i++) {
+        if (produtos[i].codigo==cod_prod){
+            for (j = i; j < total_produtos - 1; j++) {
+                produtos[j] = produtos [j + 1];
+            }
+            total_produtos--;
+            printf("produto com o codigo %d foi excluido\n",cod_prod);
+            return;
+        }
+    }
+}
 
 void menu_escolha() {
     int opcao;
@@ -182,6 +216,8 @@ void menu_escolha() {
      printf("4 - Catálogo de produtos\n");
      printf("5 - Cadastrar uma venda\n");
      printf("6 - Listar vendas\n");
+     printf("7 - Exluir Cliente\n");
+     printf("8 - Exluir Produto\n");
      printf("Escolha uma opção: ");
      scanf("%d", &opcao);
         
@@ -193,10 +229,17 @@ void menu_escolha() {
          case 4: lista_produtos(); break;
          case 5: cadastrar_venda(); break;
          case 6: lista_vendas(); break;
+         case 7: excluir_cliente(); break;
+         case 8: excluir_produtos(); break;
          default: printf("Opção inválida, tente novamente.\n");
         }
 
     } while (opcao != 0);
+}
+
+int main() {
+    menu_escolha();
+    return 0;
 }
 
 int main() {
